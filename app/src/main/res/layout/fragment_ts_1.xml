@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:lines="1"
+        android:text="请选择您所需的服务"
+        android:textColor="@color/color282828"
+        android:textSize="36dp"
+
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="90dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="90dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv1"
+            android:layout_width="0dp"
+            android:layout_height="360dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv2"
+            android:layout_marginEnd="30dp"
+            android:src="@mipmap/icon_zancun1" />
+
+        <ImageView
+            android:id="@+id/iv2"
+            android:layout_width="0dp"
+            android:layout_height="360dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv1"
+            android:layout_marginStart="30dp"
+            android:src="@mipmap/icon_zancun2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/iv1"
+            app:layout_constraintStart_toStartOf="@+id/iv1"
+            app:layout_constraintEnd_toEndOf="@+id/iv1"
+            app:layout_constraintBottom_toTopOf="@+id/linoutNumb"
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="39dp"
+            android:textColor="@color/color282828"
+            android:textSize="36sp"
+            android:text="存放" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/iv2"
+            app:layout_constraintStart_toStartOf="@+id/iv2"
+            app:layout_constraintEnd_toEndOf="@+id/iv2"
+            app:layout_constraintBottom_toTopOf="@+id/linoutNumb"
+            android:textColor="@color/color282828"
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="39dp"
+            android:textSize="36sp"
+            android:text="取出" />
+
+        <LinearLayout
+            android:id="@+id/linoutNumb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="@+id/iv1"
+            app:layout_constraintEnd_toEndOf="@+id/iv1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:text="(剩余 "
+                />
+            <TextView
+                android:id="@+id/tvNumb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:textColor="@color/colorMaster"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="28sp"
+                android:text=" 个格子)"
+                />
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

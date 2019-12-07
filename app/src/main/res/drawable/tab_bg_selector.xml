@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">        <!--<shape>            <solid android:color="#ffffff"/>            <corners android:topLeftRadius="10dp" android:topRightRadius="10dp" />        </shape>-->        <!--为了让TabLayout内部的Tab有间隔，暂时找不到其他设置方法，只能在背景图形里面设置间隔-->
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/colorOrange" />
+                </shape>
+            </item>
+<!--            <item android:left="0dp" android:right="0dp">-->
+<!--                <shape>-->
+<!--                    &lt;!&ndash;　这里设置圆角 &ndash;&gt;-->
+<!--&lt;!&ndash;                    <corners android:topLeftRadius="0dp" android:topRightRadius="0dp"&ndash;&gt;-->
+<!--&lt;!&ndash;                        android:bottomLeftRadius="0dp" android:bottomRightRadius="0dp"/>&ndash;&gt;-->
+<!--                    <solid android:color="@color/colorOrange" />-->
+<!--                </shape>-->
+<!--            </item>-->
+        </layer-list>
+    </item>
+    <item android:state_selected="false">        <!--<shape>            <solid android:color="#bcbcbc"/>            <corners android:topLeftRadius="10dp" android:topRightRadius="10dp" />        </shape>-->
+        <layer-list>
+            <item>
+                <shape>
+                    <solid android:color="@color/colorWhite" />
+                </shape>
+            </item>
+<!--            <item android:left="0dp" android:right="0dp">-->
+<!--                <shape>-->
+<!--                    &lt;!&ndash;　这里设置圆角 &ndash;&gt;-->
+<!--                    <solid android:color="@color/colorWhite" />-->
+<!--                </shape>-->
+<!--            </item>-->
+        </layer-list>
+    </item>
+</selector>

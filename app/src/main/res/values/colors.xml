@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+    <!--主色调-->
+    <color name="colorMaster">#E3760F</color>
+    <color name="colorMasterClick">#AC5C10</color>
+    <color name="colorOrange">#FF7600</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorEBEBEB">#EBEBEB</color>
+    <color name="colorF5F5F5">#F5F5F5</color>
+    <color name="colorCDCDCD">#CDCDCD</color>
+    <color name="colorD1D1D1">#D1D1D1</color>
+    <color name="colorBlack">#000000</color>
+    <color name="color282828">#282828</color>
+    <color name="color00DD30">#00DD30</color>
+</resources>
