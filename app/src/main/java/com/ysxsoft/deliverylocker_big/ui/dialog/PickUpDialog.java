@@ -81,7 +81,7 @@ public class PickUpDialog extends BaseDialog implements BaseDialog.OnDissmissLis
             params.height = height;
             layoutParent.setLayoutParams(params);
         });
-        layoutParent.setListener(()-> timer = 60);
+        layoutParent.setListener(() -> timer = 60);
         ivQrCode = holder.getView(R.id.ivQrCode);
         tvTimer = holder.getView(R.id.tvTimer);
         tabLayout = holder.getView(R.id.tabLayout);
@@ -112,7 +112,7 @@ public class PickUpDialog extends BaseDialog implements BaseDialog.OnDissmissLis
 
     @Override
     public void onActivityStarted(Activity activity) {
-        if (activity instanceof MainActivity){
+        if (activity instanceof MainActivity) {
             mHandler.postDelayed(runnable, 1000);
         }
     }
