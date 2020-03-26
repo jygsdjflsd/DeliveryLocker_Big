@@ -2,11 +2,10 @@ package com.ysxsoft.deliverylocker_big.bean;
 
 public class DoorPriceBean {
 
-
     /**
      * status : 0
      * msg : Success
-     * result : {"price":{"small":"首期2小时，每小时0.02元；次期3小时，每小时0.03元；之后每小时0.04元。","middle":"首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。","big":"首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。","superbig":"首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。"},"count":{"small":196,"middle":0,"big":0,"superbig":0}}
+     * result : {"price":{"small":"首期1小时，每小时0元；次期2小时，每小时0元；之后每小时0元。","middle":"首期1小时，每小时0.02元；次期3小时，每小时0.04元；之后每小时0.01元。","big":"首期2小时，每小时0.03元；次期3小时，每小时0.03元；之后每小时0.04元。","superbig":"首期2小时，每小时0.05元；次期4小时，每小时0.02元；之后每小时0.01元。"},"count":{"small":15,"middle":3,"big":2,"superbig":0}}
      */
 
     private int status;
@@ -39,8 +38,8 @@ public class DoorPriceBean {
 
     public static class ResultBean {
         /**
-         * price : {"small":"首期2小时，每小时0.02元；次期3小时，每小时0.03元；之后每小时0.04元。","middle":"首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。","big":"首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。","superbig":"首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。"}
-         * count : {"small":196,"middle":0,"big":0,"superbig":0}
+         * price : {"small":"首期1小时，每小时0元；次期2小时，每小时0元；之后每小时0元。","middle":"首期1小时，每小时0.02元；次期3小时，每小时0.04元；之后每小时0.01元。","big":"首期2小时，每小时0.03元；次期3小时，每小时0.03元；之后每小时0.04元。","superbig":"首期2小时，每小时0.05元；次期4小时，每小时0.02元；之后每小时0.01元。"}
+         * count : {"small":15,"middle":3,"big":2,"superbig":0}
          */
 
         private PriceBean price;
@@ -64,16 +63,25 @@ public class DoorPriceBean {
 
         public static class PriceBean {
             /**
-             * small : 首期2小时，每小时0.02元；次期3小时，每小时0.03元；之后每小时0.04元。
-             * middle : 首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。
-             * big : 首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。
-             * superbig : 首期0小时，每小时0元；次期0小时，每小时0元；之后每小时0元。
+             * small : 首期1小时，每小时0元；次期2小时，每小时0元；之后每小时0元。
+             * middle : 首期1小时，每小时0.02元；次期3小时，每小时0.04元；之后每小时0.01元。
+             * big : 首期2小时，每小时0.03元；次期3小时，每小时0.03元；之后每小时0.04元。
+             * superbig : 首期2小时，每小时0.05元；次期4小时，每小时0.02元；之后每小时0.01元。
              */
 
+            private String supersmall;
             private String small;
             private String middle;
             private String big;
             private String superbig;
+
+            public String getSupersmall() {
+                return supersmall == null ? "" : supersmall;
+            }
+
+            public void setSupersmall(String supersmall) {
+                this.supersmall = supersmall;
+            }
 
             public String getSmall() {
                 return small;
@@ -110,16 +118,25 @@ public class DoorPriceBean {
 
         public static class CountBean {
             /**
-             * small : 196
-             * middle : 0
-             * big : 0
+             * small : 15
+             * middle : 3
+             * big : 2
              * superbig : 0
              */
 
+            private int supersmall;
             private int small;
             private int middle;
             private int big;
             private int superbig;
+
+            public int getSupersmall() {
+                return supersmall;
+            }
+
+            public void setSupersmall(int supersmall) {
+                this.supersmall = supersmall;
+            }
 
             public int getSmall() {
                 return small;

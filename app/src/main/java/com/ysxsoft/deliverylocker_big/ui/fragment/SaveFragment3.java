@@ -49,6 +49,10 @@ public class SaveFragment3 extends BaseFragment {
         return fragment;
     }
 
+    @BindView(R.id.tvSupperSmall)
+    TextView tvSupperSmall;
+    @BindView(R.id.ivSupperSmall)
+    LinearLayout ivSupperSmall;
     @BindView(R.id.tvSmall)
     TextView tvSmall;
     @BindView(R.id.ivSmall)
@@ -133,9 +137,14 @@ public class SaveFragment3 extends BaseFragment {
     }
 
 
-    @OnClick({R.id.ivSmall, R.id.ivMiddle, R.id.ivBig, R.id.ivBigger, R.id.btnSee, R.id.ivClose})
+    @OnClick({R.id.ivSupperSmall, R.id.ivSmall, R.id.ivMiddle, R.id.ivBig, R.id.ivBigger, R.id.btnSee, R.id.ivClose})
     public void onViewClicked(View view) {
             switch (view.getId()) {
+                case R.id.ivSupperSmall:
+                    if (bean != null && bean.getStatus() == 0  && bean.getResult().getCount().getSupersmall() > 0) {
+                        listener.doSomething(type, "supersmall");
+                    }
+                    break;
                 case R.id.ivSmall:
                     if (bean != null && bean.getStatus() == 0  && bean.getResult().getCount().getSmall() > 0) {
                         listener.doSomething(type, "small");
@@ -174,11 +183,13 @@ public class SaveFragment3 extends BaseFragment {
             public void onSuccess(String str, String data) {
                 bean = new Gson().fromJson(str, DoorPriceBean.class);
                 if (bean.getStatus() == 0) {
+                    tvSmall.setText(String.format("剩余格子：%s", bean.getResult().getCount().getSupersmall()));
                     tvSmall.setText(String.format("剩余格子：%s", bean.getResult().getCount().getSmall()));
                     tvMiddle.setText(String.format("剩余格子：%s", bean.getResult().getCount().getMiddle()));
                     tvBig.setText(String.format("剩余格子：%s", bean.getResult().getCount().getBig()));
                     tvBigger.setText(String.format("剩余格子：%s", bean.getResult().getCount().getSuperbig()));
                     List<FeeDetailBean> list = new ArrayList<>();
+                    list.add(new FeeDetailBean("超小格子：", bean.getResult().getPrice().getSupersmall()));
                     list.add(new FeeDetailBean("小格子：", bean.getResult().getPrice().getSmall()));
                     list.add(new FeeDetailBean("中格子：", bean.getResult().getPrice().getMiddle()));
                     list.add(new FeeDetailBean("大格子：", bean.getResult().getPrice().getBig()));

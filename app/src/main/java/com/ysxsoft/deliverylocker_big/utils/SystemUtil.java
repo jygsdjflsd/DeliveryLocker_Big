@@ -31,11 +31,21 @@ public class SystemUtil {
      */
     public static String getSimId(){
         TelephonyManager telephonyManager = (TelephonyManager)MyApplication.getApplication().getSystemService(Context.TELEPHONY_SERVICE);
-        @SuppressLint("MissingPermission") String id = telephonyManager.getSubscriberId();
+//        @SuppressLint("MissingPermission") String id = telephonyManager.getSubscriberId();
+        @SuppressLint({"MissingPermission", "HardwareIds"}) String id = telephonyManager.getSimSerialNumber();
 //        TelephonyManager tm = (TelephonyManager) MyApplication.getApplication().getSystemService(Service.TELEPHONY_SERVICE);
 //
 //        SubscriptionManager mSubscriptionManager = SubscriptionManager.from(mContext);
 //        int simNumberCard = mSubscriptionManager.getActiveSubscriptionInfoCount()；//获取当前sim卡数量
+        return id;
+    }
+    /**
+     *  sim卡手机号
+     */
+    public static String getTelNumb(){
+        TelephonyManager telephonyManager = (TelephonyManager)MyApplication.getApplication().getSystemService(Context.TELEPHONY_SERVICE);
+        @SuppressLint({"MissingPermission", "HardwareIds"}) String id = telephonyManager.getLine1Number();
+        Log.e("SystemUtil", "telNumb = "+ id);
         return id;
     }
 

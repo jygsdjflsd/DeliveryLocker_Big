@@ -4,6 +4,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import com.ysxsoft.deliverylocker_big.bean.DeviceInfo;
 import com.ysxsoft.deliverylocker_big.bus.OverTimeBus;
 import com.ysxsoft.deliverylocker_big.bus.TcpServerBus;
 import com.ysxsoft.deliverylocker_big.utils.SerialPortUtil;
@@ -103,9 +104,14 @@ public class SocketClient {
      */
     public static void sendMsg(String msg) {
         if (msg != null && !TextUtils.isEmpty(msg)) {
-            pw.write(msg);
+            if (pw != null) {
+                pw.write(msg);
+                pw.flush();
+            }else {//重连tcp
+                socketClose();
+                socketMain(DeviceInfo.getIntence().register_key());
+            }
         }
-        pw.flush();
     }
 
     /**

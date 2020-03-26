@@ -114,7 +114,7 @@ public class ScreenActivity extends BaseActivity {
 //        tvTop.setText("请求网络获取设备信息");
         String device_id = MD5Util.md5Decode32(SystemUtil.getImei() + "iot");
         Log.e("device_id", device_id);
-        ApiUtils.getFacility(device_id, SystemUtil.getSimId(), new AbsPostJsonStringCb() {
+        ApiUtils.getFacility(device_id, SystemUtil.getTelNumb(), new AbsPostJsonStringCb() {
             @Override
             public void onSuccess(String str, String data) {
                 try {
