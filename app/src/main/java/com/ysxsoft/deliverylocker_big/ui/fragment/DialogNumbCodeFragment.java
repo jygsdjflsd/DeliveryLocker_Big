@@ -86,7 +86,9 @@ public class DialogNumbCodeFragment extends BaseFragment {
                 TakeCodeBean bean = new Gson().fromJson(str, TakeCodeBean.class);
                 if (bean.getStatus() == 0) {//success
                     TakeCodeSuccessDialog
-                            .newInstance(bean.getResult().getDoor_number())
+                            .newInstance(bean.getResult().getDoor_number(), ()->{
+
+                            })
                             .setSize(DensityUtil.dp2px(mContext, 400), DensityUtil.dp2px(mContext, 205))
                             .show(getChildFragmentManager());
                 } else if (bean.getStatus() == 2) {//快件超时

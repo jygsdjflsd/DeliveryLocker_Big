@@ -41,6 +41,7 @@ public class ThrowDialog extends BaseDialog implements BaseDialog.OnDissmissList
     private MyConstraintLayout layoutParent;
     private ImageView ivQrCode;
     private TextView tvTimer;
+    private ThrowDialogListener listener;
 
     private int timer = 60;
     private Handler mHandler = new Handler();
@@ -56,8 +57,9 @@ public class ThrowDialog extends BaseDialog implements BaseDialog.OnDissmissList
     };
 
 
-    public ThrowDialog(int height) {
+    public ThrowDialog(int height, ThrowDialogListener listener) {
         this.height = height;
+        this.listener = listener;
     }
 
     @Override
@@ -134,5 +136,9 @@ public class ThrowDialog extends BaseDialog implements BaseDialog.OnDissmissList
     public void onDismiss() {
         mHandler.removeCallbacks(runnable);
         MyApplication.getApplication().unregisterActivityLifecycleCallbacks(this);
+        if (listener != null) listener.onDismiss();
+    }
+    public interface ThrowDialogListener{
+        void onDismiss();
     }
 }

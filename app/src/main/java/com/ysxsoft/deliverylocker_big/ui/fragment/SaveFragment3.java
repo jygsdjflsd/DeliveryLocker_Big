@@ -183,7 +183,7 @@ public class SaveFragment3 extends BaseFragment {
             public void onSuccess(String str, String data) {
                 bean = new Gson().fromJson(str, DoorPriceBean.class);
                 if (bean.getStatus() == 0) {
-                    tvSmall.setText(String.format("剩余格子：%s", bean.getResult().getCount().getSupersmall()));
+                    tvSupperSmall.setText(String.format("剩余格子：%s", bean.getResult().getCount().getSupersmall()));
                     tvSmall.setText(String.format("剩余格子：%s", bean.getResult().getCount().getSmall()));
                     tvMiddle.setText(String.format("剩余格子：%s", bean.getResult().getCount().getMiddle()));
                     tvBig.setText(String.format("剩余格子：%s", bean.getResult().getCount().getBig()));

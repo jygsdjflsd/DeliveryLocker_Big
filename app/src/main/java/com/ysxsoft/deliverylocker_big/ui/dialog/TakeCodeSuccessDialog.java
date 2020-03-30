@@ -13,8 +13,8 @@ import com.ysxsoft.deliverylocker_big.utils.dialog.dialogfragment.ViewHolder;
 
 public class TakeCodeSuccessDialog extends BaseDialog implements BaseDialog.OnDissmissListener, Application.ActivityLifecycleCallbacks{
 
-    public static TakeCodeSuccessDialog newInstance(String numb) {
-        TakeCodeSuccessDialog dialog = new TakeCodeSuccessDialog(numb);
+    public static TakeCodeSuccessDialog newInstance(String numb, TakeCodeSuccessDialogListener listener) {
+        TakeCodeSuccessDialog dialog = new TakeCodeSuccessDialog(numb, listener);
         Bundle bundle = new Bundle();
         bundle.putBoolean("isFull", false);
         dialog.setArguments(bundle);
@@ -35,8 +35,12 @@ public class TakeCodeSuccessDialog extends BaseDialog implements BaseDialog.OnDi
 
     private int timer = 15;
     private String numb;
-    public TakeCodeSuccessDialog(String numb) {
+
+    private TakeCodeSuccessDialogListener listener;
+
+    public TakeCodeSuccessDialog(String numb, TakeCodeSuccessDialogListener listener) {
         this.numb = numb;
+        this.listener = listener;
     }
 
     @Override
@@ -96,5 +100,10 @@ public class TakeCodeSuccessDialog extends BaseDialog implements BaseDialog.OnDi
     public void onDismiss() {
         MyApplication.getApplication().unregisterActivityLifecycleCallbacks(this);
         mhandler.removeCallbacks(runnable);
+        if ( listener != null) listener.onDismiss();
+    }
+
+    public interface TakeCodeSuccessDialogListener{
+        void onDismiss();
     }
 }

@@ -127,13 +127,12 @@ public class SaveFragment5 extends BaseFragment {
                         //支付完成
                         handler.sendEmptyMessage(HANDLER_CLOSE);
                         TakeCodeSuccessDialog
-                                .newInstance(String.valueOf(bean.getResult().getDoor_number()))
-                                .setSize(DensityUtil.dp2px(mContext, 400), DensityUtil.dp2px(mContext, 205))
-                                .setOnDissmissListener(() -> {
+                                .newInstance(String.valueOf(bean.getResult().getDoor_number()), ()->{
                                     if (listener != null) {
                                         listener.doSomething(type, "dismiss");
                                     }
                                 })
+                                .setSize(DensityUtil.dp2px(mContext, 400), DensityUtil.dp2px(mContext, 205))
                                 .show(getChildFragmentManager());
                     }
                 }

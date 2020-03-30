@@ -196,13 +196,12 @@ public class SaveFragment7 extends BaseFragment {
                         JSONObject object1 = object.optJSONObject("result");
                         if (object1.optInt("paid") == 1){//支付成功
                             TakeCodeSuccessDialog
-                                    .newInstance(object1.optString("door_number"))
-                                    .setSize(DensityUtil.dp2px(mContext, 400), DensityUtil.dp2px(mContext, 205))
-                                    .setOnDissmissListener(()->{
+                                    .newInstance(object1.optString("door_number"), ()->{
                                         if (listener != null ){
                                             listener.doSomething(type, "dismiss");
                                         }
                                     })
+                                    .setSize(DensityUtil.dp2px(mContext, 400), DensityUtil.dp2px(mContext, 205))
                                     .show(getChildFragmentManager());
                             handler.sendEmptyMessage(101);
                         }

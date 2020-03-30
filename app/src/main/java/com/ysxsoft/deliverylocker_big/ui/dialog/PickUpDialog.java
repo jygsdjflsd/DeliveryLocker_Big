@@ -45,6 +45,7 @@ public class PickUpDialog extends BaseDialog implements BaseDialog.OnDissmissLis
     private TextView tvTimer;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private PickUpDialogListener listener;
 
     private String[] tabs = {"二维码取件", "取件码取件"};
 
@@ -61,8 +62,9 @@ public class PickUpDialog extends BaseDialog implements BaseDialog.OnDissmissLis
         }
     };
 
-    public PickUpDialog(int height) {
+    public PickUpDialog(int height,  PickUpDialogListener listener) {
         this.height = height;
+        this.listener = listener;
     }
 
     @Override
@@ -74,7 +76,9 @@ public class PickUpDialog extends BaseDialog implements BaseDialog.OnDissmissLis
     public void convertView(ViewHolder holder, BaseDialog dialog) {
         setOnDissmissListener(this);
         MyApplication.getApplication().registerActivityLifecycleCallbacks(this);
-        holder.getView(R.id.tvBack).setOnClickListener(v -> dismiss());
+        holder.getView(R.id.tvBack).setOnClickListener(v -> {
+            dismiss();
+        });
         layoutParent = holder.getView(R.id.layoutParent);
         layoutParent.post(() -> {
             ViewGroup.LayoutParams params = layoutParent.getLayoutParams();
@@ -148,5 +152,10 @@ public class PickUpDialog extends BaseDialog implements BaseDialog.OnDissmissLis
     public void onDismiss() {
         mHandler.removeCallbacks(runnable);
         MyApplication.getApplication().unregisterActivityLifecycleCallbacks(this);
+        if (listener != null) listener.onDismiss();
+    }
+
+    public interface PickUpDialogListener{
+        void onDismiss();
     }
 }

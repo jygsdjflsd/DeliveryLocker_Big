@@ -46,6 +46,7 @@ import com.ysxsoft.deliverylocker_big.utils.SystemUtil;
 import com.ysxsoft.deliverylocker_big.utils.ToastUtils;
 import com.ysxsoft.deliverylocker_big.utils.TtsUtil;
 import com.ysxsoft.deliverylocker_big.utils.cache.ACacheHelper;
+import com.ysxsoft.deliverylocker_big.utils.dialog.dialogfragment.BaseDialog;
 import com.ysxsoft.deliverylocker_big.utils.glide.GlideUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -89,6 +90,7 @@ public class MainActivity extends BaseActivity {
 
     private int bottomSize;//底部视图高度
     private int fillTimer;//全屏轮播图
+    private int imgNumb;//全拼给轮播图个数
 
 
     private Handler mHandler;//计时器
@@ -115,13 +117,12 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void init() {
         EventBus.getDefault().register(this);
-        SophixManager.getInstance().queryAndLoadNewPatch();//热更新检查更新
+//        SophixManager.getInstance().queryAndLoadNewPatch();//热更新检查更新
 
         ReceiverOrders.openDog();//打开看门狗
         SocketClient.socketMain(DeviceInfo.getIntence().register_key());//开启长链接
         bindService(new Intent(mContext, TimerService.class), conn, Context.BIND_AUTO_CREATE);//绑定启动服务
         SerialPortUtil.init_receive_serial();//开启串口
-        mHandler.post(runnable);//开启页面计时
     }
 
     @Override
@@ -134,6 +135,7 @@ public class MainActivity extends BaseActivity {
         initUi();
         initBanner(DeviceInfo.getIntence().getDeviceBean().getResult().getAds());
         initTouchTimer();
+        mHandler.post(runnable);//开启页面计时
 
         upDateErrorLog();
     }
@@ -142,10 +144,13 @@ public class MainActivity extends BaseActivity {
         mHandler = new Handler();
         runnable = () -> {
             fillTimer++;
-            if (fillTimer == 60) {
+            Log.e("fillTimer", "timer = "+ fillTimer);
+            if (fillTimer == 60 && imgNumb > 0) {
+                banner.stopAutoPlay();
                 bannerScreen.setVisibility(View.VISIBLE);
                 bannerScreen.startAutoPlay();
             }
+            mHandler.postDelayed(runnable, 1000);
         };
     }
 
@@ -153,37 +158,38 @@ public class MainActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         fillTimer = 0;
-        mHandler.post(runnable);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mHandler.removeCallbacks(runnable);
     }
 
     /**
      * 初始化ui
      */
     private void initUi() {
-        NetWorkUtil.getPhoneState(this, (size, text) -> tvNetWork.setText(String.format("%s/%s", text, size)));
+        NetWorkUtil.getPhoneState(this, (size, text) ->
+                tvNetWork.setText(String.format("%s/%s", text, size)));
         tvTop.setText(String.format("%s%s\u3000客服电话：%s", DeviceInfo.getIntence().getProperty(), DeviceInfo.getIntence().getTag(), DeviceInfo.getIntence().getService_tel()));
-//        GlideUtils.setBackgroud(ivLogo, DeviceInfo.getIntence().getLogo());
-        GlideUtils.setBackgroud(ivLogo, R.mipmap.icon_logo_top);
+        GlideUtils.setBackgroud(ivLogo, DeviceInfo.getIntence().getLogo());
+//        GlideUtils.setBackgroud(ivLogo, R.mipmap.icon_logo_top);
     }
 
     @OnClick({R.id.ivGet, R.id.ivThrow, R.id.ivZancun, R.id.tvNetWork})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ivGet:
-                new PickUpDialog(bottomSize).setShowBottom(true).setDimAmout(0.0f).show(getSupportFragmentManager());
+                mHandler.removeCallbacks(runnable);
+                new PickUpDialog(bottomSize, ()-> mHandler.post(runnable)).setShowBottom(true).setDimAmout(0.0f).show(getSupportFragmentManager());
                 break;
             case R.id.ivThrow:
-                new ThrowDialog(bottomSize).setShowBottom(true).setDimAmout(0.0f).show(getSupportFragmentManager());
+                mHandler.removeCallbacks(runnable);
+                new ThrowDialog(bottomSize, ()-> mHandler.post(runnable)).setShowBottom(true).setDimAmout(0.0f).show(getSupportFragmentManager());
                 break;
             case R.id.ivZancun:
-//                ToastUtils.show("功能完善中，敬请期待...");
-                new TSDialog(bottomSize).setShowBottom(true).setDimAmout(0.0f).show(getSupportFragmentManager());
+                mHandler.removeCallbacks(runnable);
+                new TSDialog(bottomSize, ()-> mHandler.post(runnable)).setShowBottom(true).setDimAmout(0.0f).show(getSupportFragmentManager());
                 break;
             case R.id.tvNetWork:
                 toast(String.format("当前版本%s", SystemUtil.getVerName(mContext)));
@@ -202,13 +208,14 @@ public class MainActivity extends BaseActivity {
         List<DeviceBean.ResultBean.AdsBean> bannerList = DeviceInfo.getIntence().getDeviceBean().getResult().getAds();
         List<String> listFill = new ArrayList<>();
         List<String> list = new ArrayList<>();
+        imgNumb = 0;
         for (DeviceBean.ResultBean.AdsBean bannerBean : bannerList) {
-            list.add(bannerBean.getUrl());
             switch (bannerBean.getPosition()) {
                 case "main-left-10":
                     list.add(bannerBean.getUrl());
                     break;
                 case "full-screen-10":
+                    imgNumb++;
                     listFill.add(bannerBean.getUrl());
                     break;
             }
@@ -225,12 +232,14 @@ public class MainActivity extends BaseActivity {
     private void initBanner(List<DeviceBean.ResultBean.AdsBean> adsBean) {
         List<String> list = new ArrayList<>();
         List<String> listFill = new ArrayList<>();
+        imgNumb = 0;
         for (DeviceBean.ResultBean.AdsBean bannerBean : adsBean) {
             switch (bannerBean.getPosition()) {
                 case "main-top-21":
                     list.add(bannerBean.getUrl());
                     break;
                 case "full-screen-21":
+                    imgNumb++;
                     listFill.add(bannerBean.getUrl());
                     break;
             }
@@ -271,6 +280,8 @@ public class MainActivity extends BaseActivity {
         bannerScreen.setDelayTime(20 * 1000);
         //设置指示器位置（当banner模式中有指示器时）
         bannerScreen.setIndicatorGravity(BannerConfig.CENTER);
+        //banner设置方法全部调用完毕时最后调用
+        bannerScreen.start();
     }
 
 
@@ -309,6 +320,9 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+            if (fillTimer >= 60){
+                banner.startAutoPlay();
+            }
             fillTimer = 0;
             bannerScreen.setVisibility(View.GONE);
             bannerScreen.stopAutoPlay();

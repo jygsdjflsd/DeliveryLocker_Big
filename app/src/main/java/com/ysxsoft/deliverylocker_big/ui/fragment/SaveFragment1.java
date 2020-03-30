@@ -122,7 +122,8 @@ public class SaveFragment1 extends BaseFragment {
                 if (bean.getStatus() == 0) {
                     DoorPriceBean.ResultBean.CountBean cBean = bean.getResult().getCount();
                     if (tvNumb != null)
-                        tvNumb.setText(String.valueOf(cBean.getBig() + cBean.getMiddle() + cBean.getSmall()+ cBean.getSuperbig()));
+                        tvNumb.setText(String.valueOf(cBean.getBig() + cBean.getMiddle()
+                                + cBean.getSmall()+ cBean.getSuperbig()+cBean.getSupersmall()));
                 } else if (bean.getStatus() == 1) {
                     ToastUtils.show(bean.getMsg());
                 }

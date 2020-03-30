@@ -21,8 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="260dp"
         android:orientation="horizontal"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,8 +30,8 @@
         >
         <LinearLayout
             android:id="@+id/ivSupperSmall"
-            android:layout_width="160dp"
-            android:layout_height="85dp"
+            android:layout_width="146dp"
+            android:layout_height="100dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="vertical"
@@ -59,10 +59,11 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ivSmall"
-            android:layout_width="186dp"
-            android:layout_height="100dp"
+            android:layout_width="166dp"
+            android:layout_height="120dp"
             app:layout_constraintStart_toEndOf="@+id/ivSupperSmall"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/ivMiddle"
             android:orientation="vertical"
             android:gravity="center"
             android:paddingStart="10dp"
@@ -119,7 +120,7 @@
         <LinearLayout
             android:id="@+id/ivBig"
             android:layout_width="206dp"
-            android:layout_height="180dp"
+            android:layout_height="160dp"
             android:background="@drawable/click_gezi_3"
             app:layout_constraintEnd_toStartOf="@+id/ivBigger"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -146,8 +147,8 @@
         </LinearLayout>
         <LinearLayout
             android:id="@+id/ivBigger"
-            android:layout_width="246dp"
-            android:layout_height="220dp"
+            android:layout_width="226dp"
+            android:layout_height="180dp"
             android:background="@drawable/click_gezi_3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

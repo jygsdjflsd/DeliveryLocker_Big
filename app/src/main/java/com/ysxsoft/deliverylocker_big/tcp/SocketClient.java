@@ -29,7 +29,8 @@ import java.net.Socket;
  */
 public class SocketClient {
 
-    public static final String TCP_HOST = "iot.tcp.modoubox.com";
+//    public static final String TCP_HOST = "iot.tcp.modoubox.com";
+    public static final String TCP_HOST = "iot.dev.modoubox.com";//测试
     public static final int TCP_PORT = 8091;
     private static Socket socket;
     private static InetAddress address;
@@ -84,9 +85,12 @@ public class SocketClient {
                         }
                     }
                     Log.e("socket", "close");
-                    is.close();
-                    os.close();
-                    pw.close();
+                    if (is != null)
+                        is.close();
+                    if (os != null)
+                        os.close();
+                    if (pw != null)
+                        pw.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }catch (JSONException ignored){

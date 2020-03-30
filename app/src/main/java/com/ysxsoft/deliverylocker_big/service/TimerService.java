@@ -114,7 +114,7 @@ public class TimerService extends Service {
         mHandler.post(soketRunnable);//长链接检测
         mHandler.postDelayed(onLineRunnable, 60 * 1000);//在线检测
         mHandler.postDelayed(serverRunnable, 30 * 1000);//在线检测
-        mHandler.post(deviceInfoRunnable);//更新广告
+        mHandler.postDelayed(deviceInfoRunnable, 60 * 60 * 1000);//更新广告
         mHandler.post(updataAppRunnable);//更新app
         mHandler.post(qrCodeRunnable);//更新二维码
     }

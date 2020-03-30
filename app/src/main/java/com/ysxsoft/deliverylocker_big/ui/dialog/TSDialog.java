@@ -56,9 +56,10 @@ public class TSDialog extends BaseDialog implements BaseDialog.OnDissmissListene
      * 临时数据
      */
     private String token;
-
-    public TSDialog(int height) {
+    private TsDialogListener listener;
+    public TSDialog(int height, TsDialogListener listener) {
         this.height = height;
+        this.listener = listener;
     }
 
     @Override
@@ -275,5 +276,10 @@ public class TSDialog extends BaseDialog implements BaseDialog.OnDissmissListene
     public void onDismiss() {
         if (mHandler != null) mHandler.removeCallbacks(runnable);
         MyApplication.getApplication().unregisterActivityLifecycleCallbacks(this);
+        if (listener != null) listener.onDismiss();
+    }
+
+    public interface TsDialogListener{
+        void onDismiss();
     }
 }
