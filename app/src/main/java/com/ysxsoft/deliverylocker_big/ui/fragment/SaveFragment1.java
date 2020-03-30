@@ -127,6 +127,7 @@ public class SaveFragment1 extends BaseFragment {
                 } else if (bean.getStatus() == 1) {
                     ToastUtils.show(bean.getMsg());
                 }
+
             }
 
             @Override
