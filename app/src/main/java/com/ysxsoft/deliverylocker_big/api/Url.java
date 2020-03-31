@@ -3,11 +3,11 @@ package com.ysxsoft.deliverylocker_big.api;
 public class Url {
 
 
-//    public static final String BASE_URL = "https://iot.modoubox.com/";
-    public static final String BASE_URL = "https://iot.dev.modoubox.com/";//测试服
+    public static final String BASE_URL = "https://iot.modoubox.com/";
+//    public static final String BASE_URL = "https://iot.dev.modoubox.com/";//测试服
 
-//    public static final String BASE_URL_BIG = "http://xintian.modoubox.com/";//正式服
-    public static final String BASE_URL_BIG = "http://express.admin.modoubox.com/";//测试服
+    public static final String BASE_URL_BIG = "http://xintian.modoubox.com/";//正式服
+//    public static final String BASE_URL_BIG = "http://express.admin.modoubox.com/";//测试服
     /**-
      * 工具 ================================================================================
      */

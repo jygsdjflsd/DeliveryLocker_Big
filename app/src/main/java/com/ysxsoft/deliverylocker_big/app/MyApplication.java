@@ -38,7 +38,7 @@ public class MyApplication extends Application {
         application = this;
         ACacheHelper.init(this);
         initOkGo();
-//        CrashHandler.getInstance().init(this);//发布时打开
+        CrashHandler.getInstance().init(this);//发布时打开
     }
 
     public static MyApplication getApplication(){

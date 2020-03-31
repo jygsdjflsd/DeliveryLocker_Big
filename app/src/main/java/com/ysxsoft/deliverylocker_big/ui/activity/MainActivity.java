@@ -172,8 +172,11 @@ public class MainActivity extends BaseActivity {
         NetWorkUtil.getPhoneState(this, (size, text) ->
                 tvNetWork.setText(String.format("%s/%s", text, size)));
         tvTop.setText(String.format("%s%s\u3000客服电话：%s", DeviceInfo.getIntence().getProperty(), DeviceInfo.getIntence().getTag(), DeviceInfo.getIntence().getService_tel()));
-        GlideUtils.setBackgroud(ivLogo, DeviceInfo.getIntence().getLogo());
-//        GlideUtils.setBackgroud(ivLogo, R.mipmap.icon_logo_top);
+        if (TextUtils.isEmpty(DeviceInfo.getIntence().getLogo())){
+            GlideUtils.setBackgroud(ivLogo, R.mipmap.icon_logo_top);
+        }else {
+            GlideUtils.setBackgroud(ivLogo, DeviceInfo.getIntence().getLogo());
+        }
     }
 
     @OnClick({R.id.ivGet, R.id.ivThrow, R.id.ivZancun, R.id.tvNetWork})
@@ -211,20 +214,29 @@ public class MainActivity extends BaseActivity {
         imgNumb = 0;
         for (DeviceBean.ResultBean.AdsBean bannerBean : bannerList) {
             switch (bannerBean.getPosition()) {
-                case "main-left-10":
+                case "main-top-21":
                     list.add(bannerBean.getUrl());
                     break;
-                case "full-screen-10":
+                case "full-screen-21":
                     imgNumb++;
                     listFill.add(bannerBean.getUrl());
                     break;
             }
         }
         runOnUiThread(() -> {
-            bannerScreen.update(list);
+            tvTop.setText(String.format("%s%s\u3000客服电话：%s", DeviceInfo.getIntence().getProperty(), DeviceInfo.getIntence().getTag(), DeviceInfo.getIntence().getService_tel()));
+            if (TextUtils.isEmpty(DeviceInfo.getIntence().getLogo())){
+                GlideUtils.setBackgroud(ivLogo, R.mipmap.icon_logo_top);
+            }else {
+                GlideUtils.setBackgroud(ivLogo, DeviceInfo.getIntence().getLogo());
+            }
+            banner.update(list);
             bannerScreen.update(listFill);
-            if (bannerScreen.getVisibility() == View.GONE) {
+            if (fillTimer >= 60 && imgNumb > 0){
+                bannerScreen.setVisibility(View.VISIBLE);
+            }else {
                 bannerScreen.stopAutoPlay();
+                bannerScreen.setVisibility(View.GONE);
             }
         });
     }

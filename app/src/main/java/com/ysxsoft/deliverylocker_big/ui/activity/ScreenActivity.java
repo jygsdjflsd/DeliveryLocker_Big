@@ -93,7 +93,7 @@ public class ScreenActivity extends BaseActivity {
         systemSetting();
         startService(new Intent(mContext, DaemonService.class));
         mHandler.post(runnable);//查询网络
-        ReceiverOrders.showNavigation();//隐藏导航栏
+        ReceiverOrders.hideNavigation();//隐藏导航栏
     }
 
     /**
