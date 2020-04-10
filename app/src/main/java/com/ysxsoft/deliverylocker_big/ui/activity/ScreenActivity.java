@@ -67,17 +67,42 @@ public class ScreenActivity extends BaseActivity {
                 @Override
                 public void run() {
                     super.run();
-                    if (PingUtil.isNetworkOnline(String.valueOf(System.currentTimeMillis()))) {//网络通
-                        mHandler.sendEmptyMessage(HANDLER_NETWORK_ON);
-                    } else {//网络不通
-                        pingTime++;
-                        if (pingTime == 10) {
-                            mHandler.sendEmptyMessage(HANDLER_NETWORK_OFF);
-                            return;
+                    ApiUtils.netOnline("", new AbsPostJsonStringCb() {
+                        @Override
+                        public void onSuccess(String str, String data) {
+                            //网络通
+                            mHandler.sendEmptyMessage(HANDLER_NETWORK_ON);
                         }
-                        mHandler.postDelayed(this, 5000);//重新屏
-                        Log.e("runnable", "pingTime = " + pingTime);
-                    }
+
+                        @Override
+                        public void onError(Response<String> response) {//网络不通
+                            super.onError(response);
+                            pingTime++;
+                            if (pingTime == 10) {
+                                mHandler.sendEmptyMessage(HANDLER_NETWORK_OFF);
+                                return;
+                            }
+                            mHandler.postDelayed(runnable, 5000);//重新屏
+                            Log.e("runnable", "pingTime = " + pingTime);
+                        }
+
+                        @Override
+                        public void onFinish() {
+
+                        }
+                    });
+
+//                    if (PingUtil.isNetworkOnline(String.valueOf(System.currentTimeMillis()))) {//网络通
+//                        mHandler.sendEmptyMessage(HANDLER_NETWORK_ON);
+//                    } else {//网络不通
+//                        pingTime++;
+//                        if (pingTime == 10) {
+//                            mHandler.sendEmptyMessage(HANDLER_NETWORK_OFF);
+//                            return;
+//                        }
+//                        mHandler.postDelayed(this, 5000);//重新屏
+//                        Log.e("runnable", "pingTime = " + pingTime);
+//                    }
                 }
             }.start();
         }
@@ -106,7 +131,6 @@ public class ScreenActivity extends BaseActivity {
         Intent intent = new Intent(mContext, MySystemService.class);
         startService(intent);
     }
-
     /**
      * 获取设备注册信息
      */
