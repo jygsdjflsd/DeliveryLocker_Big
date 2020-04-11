@@ -65,7 +65,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             app:image_scale_type="fit_xy"
-
+            app:banner_layout="@layout/banner"
+            app:banner_default_image="@mipmap/icon_banner"
             />
 
         <TextView

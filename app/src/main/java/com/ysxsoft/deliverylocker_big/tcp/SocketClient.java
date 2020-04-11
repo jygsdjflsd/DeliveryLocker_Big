@@ -109,8 +109,14 @@ public class SocketClient {
     public static void sendMsg(String msg) {
         if (msg != null && !TextUtils.isEmpty(msg)) {
             if (pw != null) {
-                pw.write(msg);
-                pw.flush();
+                new Thread(){
+                    @Override
+                    public void run() {
+                        super.run();
+                        pw.write(msg);
+                        pw.flush();
+                    }
+                }.start();
             }else {//重连tcp
                 socketClose();
                 socketMain(DeviceInfo.getIntence().register_key());
